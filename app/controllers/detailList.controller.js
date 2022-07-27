@@ -176,7 +176,9 @@ exports.create = (req, res) => {
     const linux = req.query.linux;
     const min_metacritic_score = req.query.min_metacritic_score;
     const supported_languages = req.query.supported_languages;
-    AppDetail.getRange(req.params.first, size, language, name, coming_soon, windows, mac, linux, min_metacritic_score, supported_languages, (err, data) => {
+    const genres = req.query.genres;
+    const categories = req.query.categories;
+    AppDetail.getRange(req.params.first, size, language, name, coming_soon, windows, mac, linux, min_metacritic_score, supported_languages, genres, categories, (err, data) => {
       if (err)
         res.status(500).send({
           message:

@@ -109,10 +109,10 @@ AppDetail.remove = (steam_appid, language, result) => {
   });
 };
 
-AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, windows, mac, linux, min_metacritic_score, supported_languages, result) => {
+AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, windows, mac, linux, min_metacritic_score, supported_languages, genres, categories, result) => {
   let query2 = `SELECT * FROM detailList${language} LIMIT ${first_index}, ${batch_size}`;
   let query = `SELECT * FROM detailList${language} `;
-  if(name || coming_soon || windows || mac || linux || min_metacritic_score || supported_languages){
+  if(name || coming_soon || windows || mac || linux || min_metacritic_score || supported_languages || genres || categories){
     query += `WHERE `
     if(name){
       query += `name LIKE '%${name}%' AND `;
@@ -134,9 +134,23 @@ AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, wind
     }
     if(supported_languages){
       var split = supported_languages.split(',')
+      console.log(split)
       for (let i = 0; i < split.length; i++) {
         query += `supported_languages LIKE "%${split[i]}%" AND `;
-        
+      }
+    }
+    if(genres){
+      var split = genres.split(',')
+      console.log(split)
+      for (let i = 0; i < split.length; i++) {
+        query += `genres LIKE "%${split[i]}%" AND `;
+      }
+    }
+    if(categories){
+      var split = categories.split(',')
+      console.log(split)
+      for (let i = 0; i < split.length; i++) {
+        query += `categories LIKE "%${split[i]}%" AND `;
       }
     }
     query = query.substring(0, query.length-4)
