@@ -2,7 +2,7 @@ const sql = require("./db.js");
 
 const Language = function(language){
     this.language = language.language;
-    this.languageValue = language.languageValue;
+    this.value = language.value;
 }
 
 Language.create = (newLanguage, result) => {
@@ -19,9 +19,12 @@ Language.create = (newLanguage, result) => {
 };
 
 Language.getAll = (language, result) => {
-    let query = `SELECT * FROM languageList`;
+    var query = ""
     if (language) {
-      query += ` WHERE language LIKE '%${language}%'`;
+      query += `SELECT value FROM languageList WHERE language LIKE '%${language}%'`;
+    }
+    else{
+      query = `SELECT * FROM languageList`;
     }
     sql.query(query, (err, res) => {
       if (err) {

@@ -2,7 +2,7 @@ const sql = require("./db.js");
 
 const Genre = function(genre){
     this.language = genre.language;
-    this.genreValue = genre.genreValue;
+    this.value = genre.value;
 }
 
 Genre.create = (newGenre, result) => {
@@ -19,10 +19,13 @@ Genre.create = (newGenre, result) => {
 };
 
 Genre.getAll = (language, result) => {
-    let query = `SELECT * FROM genreList`;
-    if (language) {
-      query += ` WHERE language LIKE '%${language}%'`;
-    }
+  var query = ""
+  if (language) {
+    query += `SELECT value FROM genreList WHERE language LIKE '%${language}%'`;
+  }
+  else{
+    query = `SELECT * FROM genreList`;
+  }
     sql.query(query, (err, res) => {
       if (err) {
         console.log("error: ", err);

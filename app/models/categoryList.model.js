@@ -2,7 +2,7 @@ const sql = require("./db.js");
 
 const Category = function(category){
     this.language = category.language;
-    this.categoryValue = category.categoryValue;
+    this.value = category.value;
 }
 
 Category.create = (newCategory, result) => {
@@ -19,10 +19,13 @@ Category.create = (newCategory, result) => {
 };
 
 Category.getAll = (language, result) => {
-    let query = `SELECT * FROM categoryList`;
-    if (language) {
-      query += ` WHERE language LIKE '%${language}%'`;
-    }
+  var query = ""
+  if (language) {
+    query += `SELECT value FROM categoryList WHERE language LIKE '%${language}%'`;
+  }
+  else{
+    query = `SELECT * FROM categoryList`;
+  }
     sql.query(query, (err, res) => {
       if (err) {
         console.log("error: ", err);
