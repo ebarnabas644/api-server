@@ -10,7 +10,7 @@ exports.create = (req, res) => {
   // Create an language
   const language = new Language({
     language: req.body.language,
-    languageValue: req.body.languageValue
+    value: req.body.value
   });
   // Save language in the database
   Language.create(language, (err, data) => {

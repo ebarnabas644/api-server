@@ -10,7 +10,7 @@ exports.create = (req, res) => {
   // Create an category
   const category = new Category({
     language: req.body.language,
-    categoryValue: req.body.categoryValue
+    value: req.body.value
   });
   // Save category in the database
   Category.create(category, (err, data) => {

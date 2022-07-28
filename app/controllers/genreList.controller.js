@@ -10,7 +10,7 @@ exports.create = (req, res) => {
   // Create an genre
   const genre = new Genre({
     language: req.body.language,
-    genreValue: req.body.genreValue
+    value: req.body.value
   });
   // Save genre in the database
   Genre.create(genre, (err, data) => {
