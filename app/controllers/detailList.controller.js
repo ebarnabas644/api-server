@@ -77,6 +77,26 @@ exports.create = (req, res) => {
         });
     }
     };
+
+  exports.getFeatured = (req, res) => {
+    const language = req.query.l;
+    if(language){
+      AppDetail.getFeatured(language, (err, data) => {
+          if (err)
+          res.status(500).send({
+              message:
+              err.message || "Some error occurred while retrieving apps."
+          });
+          else res.send(data);
+      });
+  }
+  else{
+      res.status(500).send({
+          message:
+          "You must specify language!"
+      });
+  }
+  }
   
   // Find a single app with a id
   exports.findOne = (req, res) => {
