@@ -72,6 +72,7 @@ AppDetail.getAll = (name, language, result) => {
     result(null, res);
   });
 };
+
 AppDetail.updateById = (steam_appid, steamApp, language, result) => {
   sql.query(
     `UPDATE detailList${language} SET steam_appid = ?, name = ?, required_age = ?, is_free = ?, detailed_description = ?, about_the_game = ?, short_description = ?, supported_languages = ?, reviews = ?, header_image = ?, website = ?, developers = ?, publishers = ?, windows = ?, mac = ?, linux = ?, metacritic_score = ?, metacritic_url = ?, categories = ?, genres = ?, screenshots_thumbnail = ?, screenshots_full = ?, recommendations = ?, coming_soon = ?, date = ?, pc_requirements_min = ?, pc_requirements_recommended = ?  WHERE steam_appid = ?`,
