@@ -2,8 +2,17 @@ require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const https = require("https");
+const fs = require("fs")
 var corsOptions = {
-  origin: "http://localhost:4200" //destination
+  origin: "https://game-finder-425ea.web.app/" //destination
+};
+
+var key = fs.readFileSync('key.pem');
+var cert = fs.readFileSync('cert.pem');
+var options = {
+  key: key,
+  cert: cert
 };
 
 app.use(cors(corsOptions));
@@ -11,6 +20,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+var server = https.createServer(options, app);
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to game reviews api server." });
@@ -23,6 +34,6 @@ require("./app/routes/categoryList.routes.js")(app);
 require("./app/routes/featured.routes.js")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+server.listen(8080, () => {
+  console.log("server starting on port : " + 4000)
 });
