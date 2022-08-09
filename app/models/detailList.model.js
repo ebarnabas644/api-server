@@ -137,21 +137,21 @@ AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, wind
       var split = supported_languages.split(',')
       console.log(split)
       for (let i = 0; i < split.length; i++) {
-        query += `supported_languages LIKE "%${split[i]}%" AND `;
+        query += `supported_languages LIKE '%${split[i]}%' AND `;
       }
     }
     if(genres){
       var split = genres.split(',')
       console.log(split)
       for (let i = 0; i < split.length; i++) {
-        query += `genres LIKE "%${split[i]}%" AND `;
+        query += `genres LIKE '%${split[i]}%' AND `;
       }
     }
     if(categories){
       var split = categories.split(',')
       console.log(split)
       for (let i = 0; i < split.length; i++) {
-        query += `categories LIKE "%${split[i]}%" AND `;
+        query += `categories LIKE '%${split[i]}%' AND `;
       }
     }
     query = query.substring(0, query.length-4)
