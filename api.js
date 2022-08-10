@@ -32,8 +32,16 @@ require("./app/routes/languageList.routes.js")(app);
 require("./app/routes/genreList.routes.js")(app);
 require("./app/routes/categoryList.routes.js")(app);
 require("./app/routes/featured.routes.js")(app);
+
+var currentdate = new Date(); 
+var datetime = "[" + currentdate.getFullYear() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getDate()+ " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds()+"] ";
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
-server.listen(8080, () => {
-  console.log("server starting on port : " + 4000)
+server.listen(PORT, () => {
+  console.log(datetime+"Server starting on port : " + PORT)
 });
