@@ -30,8 +30,7 @@ const AppDetail = function(appDetail) {
     this.pc_requirements_recommended = appDetail.pc_requirements_recommended;
 };
 AppDetail.create = (newApp, language, result) => {
-    queryText =
-  sql.query(`INSERT INTO detailList${language} SET ?`, newApp, (err, res) => {
+    queryText = sql.query(`INSERT INTO detailList${language} SET ?`, newApp, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -60,7 +59,6 @@ AppDetail.findById = (steam_appid, language, result) => {
       result(null, res[0]);
       return;
     }
-    // not found Tutorial with the id
     result({ kind: "not_found" }, null);
   });
 };
@@ -75,7 +73,6 @@ AppDetail.getAll = (name, language, result) => {
       result(null, err);
       return;
     }
-    //console.log("apps: ", res);
     result(null, res);
   });
 };
@@ -91,7 +88,6 @@ AppDetail.updateById = (steam_appid, steamApp, language, result) => {
         return;
       }
       if (res.affectedRows == 0) {
-        // not found Tutorial with the id
         result({ kind: "not_found" }, null);
         return;
       }
@@ -115,20 +111,23 @@ AppDetail.remove = (steam_appid, language, result) => {
       return;
     }
     if (res.affectedRows == 0) {
-      // not found Tutorial with the id
       result({ kind: "not_found" }, null);
       return;
     }
-    //console.log("deleted app with id: ", steam_appid);
     result(null, res);
   });
 };
 
-AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, windows, mac, linux, min_metacritic_score, supported_languages, genres, categories, result) => {
+AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, windows, mac, linux, min_metacritic_score, supported_languages, genres, categories, user, result) => {
   let query2 = `SELECT * FROM detailList${language} LIMIT ${first_index}, ${batch_size}`;
   let query = `SELECT * FROM detailList${language} `;
-  if(name || coming_soon || windows || mac || linux || min_metacritic_score || supported_languages || genres || categories){
-    query += `WHERE `
+  if(name || coming_soon || windows || mac || linux || min_metacritic_score || supported_languages || genres || categories || user){
+    if(user){
+      query += `INNER JOIN favouriteList ON detailList${language}.steam_appid = favouriteList.steam_appid WHERE favouriteList.user = '${user}' AND `
+    }
+    else{
+      query += `WHERE `
+    }
     if(name){
       query += `name LIKE '%${name}%' AND `;
     }
