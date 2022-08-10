@@ -5,7 +5,7 @@ const app = express();
 const https = require("https");
 const fs = require("fs")
 var corsOptions = {
-  origin: ["https://game-finder-425ea.web.app/","http://localhost:4200"] //destination
+  origin: ["https://game-finder-425ea.web.app","http://localhost:4200"] //destination
 };
 
 var key = fs.readFileSync('key.pem');
