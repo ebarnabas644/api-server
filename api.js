@@ -32,6 +32,7 @@ require("./app/routes/languageList.routes.js")(app);
 require("./app/routes/genreList.routes.js")(app);
 require("./app/routes/categoryList.routes.js")(app);
 require("./app/routes/featured.routes.js")(app);
+require("./app/routes/favouriteList.routes.js")(app);
 
 var currentdate = new Date(); 
 var datetime = "[" + currentdate.getFullYear() + "/"
