@@ -49,7 +49,14 @@ AppDetail.findById = (steam_appid, language, result) => {
       return;
     }
     if (res.length) {
-      console.log("found app: ", res[0]);
+      var currentdate = new Date(); 
+      var datetime = "[" + currentdate.getFullYear() + "/"
+                      + (currentdate.getMonth()+1)  + "/" 
+                      + currentdate.getDate()+ " @ "  
+                      + currentdate.getHours() + ":"  
+                      + currentdate.getMinutes() + ":" 
+                      + currentdate.getSeconds()+"] ";
+      console.log(datetime+"Found app with id of "+steam_appid);
       result(null, res[0]);
       return;
     }
@@ -88,7 +95,14 @@ AppDetail.updateById = (steam_appid, steamApp, language, result) => {
         result({ kind: "not_found" }, null);
         return;
       }
-      //console.log("updated app: ", { steam_appid: steam_appid, ...steamApp });
+      var currentdate = new Date(); 
+      var datetime = "[" + currentdate.getFullYear() + "/"
+                      + (currentdate.getMonth()+1)  + "/" 
+                      + currentdate.getDate()+ " @ "  
+                      + currentdate.getHours() + ":"  
+                      + currentdate.getMinutes() + ":" 
+                      + currentdate.getSeconds()+"] ";
+      console.log(datetime+"updated app with id of "+ steam_appid);
       result(null, { steam_appid: steam_appid, ...steamApp });
     }
   );
@@ -135,21 +149,18 @@ AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, wind
     }
     if(supported_languages){
       var split = supported_languages.split(',')
-      console.log(split)
       for (let i = 0; i < split.length; i++) {
         query += `supported_languages LIKE '%${split[i]}%' AND `;
       }
     }
     if(genres){
       var split = genres.split(',')
-      console.log(split)
       for (let i = 0; i < split.length; i++) {
         query += `genres LIKE '%${split[i]}%' AND `;
       }
     }
     if(categories){
       var split = categories.split(',')
-      console.log(split)
       for (let i = 0; i < split.length; i++) {
         query += `categories LIKE '%${split[i]}%' AND `;
       }
@@ -157,7 +168,14 @@ AppDetail.getRange = (first_index, batch_size, language, name, coming_soon, wind
     query = query.substring(0, query.length-4)
   }
   query += `LIMIT ${first_index}, ${batch_size}`
-  console.log(query)
+  var currentdate = new Date(); 
+  var datetime = "[" + currentdate.getFullYear() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getDate()+ " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds()+"] ";
+  console.log(datetime+query)
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
