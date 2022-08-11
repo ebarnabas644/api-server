@@ -40,15 +40,17 @@ exports.create = (req, res) => {
   };
 
 exports.find = (req, res) => {
-    Favourite.find(req.body.steam_appid, req.body.user, (err, data) => {
+  const appId = req.query.appid;
+  const user = req.query.uid;
+    Favourite.find(appId, user, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
             res.status(404).send({
-                message: `Not found favourite with id ${req.body.steam_appid} ${req.body.user}.`
+                message: `Not found favourite with id ${appId} ${user}.`
             });
             } else {
             res.status(500).send({
-                message: "Error retrieving app with id " + req.body.steam_appid + " " + req.body.user
+                message: "Error retrieving app with id " + appId + " " + user
             });
             }
         } else res.send(data);
