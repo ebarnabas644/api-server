@@ -63,7 +63,6 @@ exports.update = (req, res) => {
       message: "Content can not be empty!"
     });
   }
-  console.log(req.body);
   SteamApp.updateById(
     req.params.appid,
     new SteamApp(req.body),

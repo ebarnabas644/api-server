@@ -10,7 +10,6 @@ const SteamApp = function(steamApp) {
 SteamApp.create = (newApp, result) => {
   sql.query("INSERT INTO appList SET ?", newApp, (err, res) => {
     if (err) {
-      console.log("error: ", err);
       result(err, null);
       return;
     }
@@ -21,12 +20,10 @@ SteamApp.create = (newApp, result) => {
 SteamApp.findById = (appid, result) => {
   sql.query(`SELECT * FROM appList WHERE appid = ${appid}`, (err, res) => {
     if (err) {
-      console.log("error: ", err);
       result(err, null);
       return;
     }
     if (res.length) {
-      console.log("found app: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -41,7 +38,6 @@ SteamApp.getAll = (name, result) => {
   }
   sql.query(query, (err, res) => {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
       return;
     }
@@ -68,7 +64,6 @@ SteamApp.updateById = (appid, steamApp, result) => {
     [steamApp.appid, steamApp.name, steamApp.dead_entry, steamApp.update_scheduled, steamApp.not_a_game, appid],
     (err, res) => {
       if (err) {
-        console.log("error: ", err);
         result(null, err);
         return;
       }
@@ -85,7 +80,6 @@ SteamApp.updateById = (appid, steamApp, result) => {
 SteamApp.remove = (appid, result) => {
   sql.query("DELETE FROM appList WHERE appid = ?", appid, (err, res) => {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
       return;
     }
@@ -101,7 +95,6 @@ SteamApp.remove = (appid, result) => {
 SteamApp.removeAll = result => {
   sql.query("DELETE FROM appList", (err, res) => {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
       return;
     }
@@ -113,7 +106,6 @@ SteamApp.setUpdateStatus = (appid, state, result) =>{
   sql.query(`UPDATE appList SET update_scheduled = ${state} WHERE appid = ${appid}`,
   (err, res) => {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
       return;
     }
