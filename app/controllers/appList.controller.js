@@ -109,3 +109,21 @@ exports.deleteAll = (req, res) => {
         else res.send({ message: `All apps were deleted successfully!` });
       });
 };
+
+exports.setUpdateStatus = (req, res) => {
+  const id = req.params.appid
+  const state = req.params.state
+  SteamApp.setUpdateStatus(id, state, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found app with id ${req.params.appid}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Could not update app with id " + req.params.appid
+        });
+      }
+    } else res.send({ message: `App was updated successfully!` });
+  })
+}

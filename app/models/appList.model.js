@@ -109,4 +109,21 @@ SteamApp.removeAll = result => {
     result(null, res);
   });
 };
+SteamApp.setUpdateStatus = (appid, state, result) =>{
+  sql.query(`UPDATE appList SET update_scheduled = ${state} WHERE appid = ${appid}`,
+  (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    if (res.affectedRows == 0) {
+      // not found Tutorial with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+    //console.log("updated app: ", { appid: appid, ...steamApp });
+    result(null, { appid: appid });
+  })
+}
 module.exports = SteamApp;
